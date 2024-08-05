@@ -14,6 +14,8 @@ public class Character : MonoBehaviour
     #region Movement
     private CharacterController characterController;
     [SerializeField] private float playerSpeed;
+    [SerializeField] private float rotationSpeed;
+    private Vector3 movement;
     #endregion
 
     void Start()
@@ -29,7 +31,10 @@ public class Character : MonoBehaviour
 
         if (moveInput == Vector2.zero) return;
 
-        Vector3 movement = new Vector3(moveInput.x, 0, moveInput.y) * playerSpeed * Time.deltaTime;
-        characterController.Move(movement);
+        movement = new Vector3(moveInput.x, 0, moveInput.y).normalized;
+        characterController.Move(movement * playerSpeed * Time.deltaTime);
+
+        Quaternion movementRotation = Quaternion.LookRotation(movement);
+        transform.rotation = Quaternion.Slerp(transform.rotation, movementRotation, rotationSpeed * Time.deltaTime);
     }
 }
