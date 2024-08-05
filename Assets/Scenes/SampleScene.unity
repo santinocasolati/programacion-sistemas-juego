@@ -644,7 +644,7 @@ MonoBehaviour:
   playerInput: {fileID: 784415870}
   playerSpeed: 5
   rotationSpeed: 20
-  interactRadius: 1
+  interactRadius: 0.75
   interactLayerMask:
     serializedVersion: 2
     m_Bits: 0

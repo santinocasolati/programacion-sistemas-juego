@@ -58,7 +58,11 @@ public class Character : MonoBehaviour
             foreach (Collider col in colliders)
             {
                 IInteractable interaction = col.GetComponent<IInteractable>();
+
+                if (interaction == null) continue;
+
                 interaction.Interact();
+                break;
             }
         }
     }
