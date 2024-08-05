@@ -533,9 +533,9 @@ GameObject:
   - component: {fileID: 555766864}
   - component: {fileID: 555766868}
   - component: {fileID: 555766867}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -644,6 +644,10 @@ MonoBehaviour:
   playerInput: {fileID: 784415870}
   playerSpeed: 5
   rotationSpeed: 20
+  interactRadius: 1
+  interactLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!143 &555766868
 CharacterController:
   m_ObjectHideFlags: 0
@@ -680,7 +684,7 @@ GameObject:
   m_Component:
   - component: {fileID: 784415869}
   - component: {fileID: 784415870}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -794,7 +798,7 @@ GameObject:
   m_Component:
   - component: {fileID: 857314980}
   - component: {fileID: 857314981}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -867,7 +871,7 @@ GameObject:
   - component: {fileID: 1628372312}
   - component: {fileID: 1628372315}
   - component: {fileID: 1628372316}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -934,7 +938,7 @@ GameObject:
   - component: {fileID: 1986626238}
   - component: {fileID: 1986626240}
   - component: {fileID: 1986626239}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

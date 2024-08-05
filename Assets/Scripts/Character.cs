@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class Character : MonoBehaviour
     #region Inputs
     [SerializeField] private PlayerInput playerInput;
     private InputAction movementAction;
+    private InputAction interactAction;
     #endregion
 
     #region Movement
@@ -18,9 +20,17 @@ public class Character : MonoBehaviour
     private Vector3 movement;
     #endregion
 
+    #region Interactions
+    [SerializeField] private float interactRadius;
+    [SerializeField] private LayerMask interactLayerMask;
+    #endregion
+
     void Start()
     {
         movementAction = playerInput.actions.FindAction("Movement");
+
+        interactAction = playerInput.actions.FindAction("Interact");
+        interactAction.performed += TryInteract;
 
         characterController = GetComponent<CharacterController>();
     }
@@ -36,5 +46,26 @@ public class Character : MonoBehaviour
 
         Quaternion movementRotation = Quaternion.LookRotation(movement);
         transform.rotation = Quaternion.Slerp(transform.rotation, movementRotation, rotationSpeed * Time.deltaTime);
+    }
+
+    private void TryInteract(InputAction.CallbackContext context)
+    {
+        Collider[] colliders = new Collider[5];
+        int foundColliders = Physics.OverlapSphereNonAlloc(transform.position + transform.forward, interactRadius, colliders, interactLayerMask);
+
+        if (foundColliders > 0)
+        {
+            foreach (Collider col in colliders)
+            {
+                IInteractable interaction = col.GetComponent<IInteractable>();
+                interaction.Interact();
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + transform.forward, interactRadius);
     }
 }
