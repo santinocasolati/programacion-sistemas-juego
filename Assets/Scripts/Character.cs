@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, IDamageable
 {
     #region Inputs
     [SerializeField] private PlayerInput playerInput;
@@ -25,6 +25,11 @@ public class Character : MonoBehaviour
     [SerializeField] private LayerMask interactLayerMask;
     #endregion
 
+    #region HP
+    private float currentHealth;
+    [SerializeField] private float maxHealth;
+    #endregion
+
     void Start()
     {
         movementAction = playerInput.actions.FindAction("Movement");
@@ -33,6 +38,8 @@ public class Character : MonoBehaviour
         interactAction.performed += TryInteract;
 
         characterController = GetComponent<CharacterController>();
+
+        currentHealth = maxHealth;
     }
 
     void Update()
@@ -65,6 +72,21 @@ public class Character : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth < 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+
     }
 
     private void OnDrawGizmosSelected()
